@@ -1,5 +1,7 @@
 <?php
 
+// app/Filament/Resources/FaqResource.php
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FaqResource\Pages;
@@ -19,17 +21,25 @@ class FaqResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('sort_order')
+                    ->label('Urutan')
+                    ->numeric()
+                    ->default(fn () => Faq::max('sort_order') + 1)
+                    ->required(),
+
                 Forms\Components\TextInput::make('question')
+                    ->label('Pertanyaan')
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\RichEditor::make('answer')
+                    ->label('Jawaban')
                     ->required()
                     ->columnSpanFull(),
+
                 Forms\Components\Toggle::make('is_active')
+                    ->label('Aktif')
                     ->default(true),
-                Forms\Components\TextInput::make('sort_order')
-                    ->numeric()
-                    ->default(0),
             ]);
     }
 
@@ -37,20 +47,28 @@ class FaqResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('question')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->boolean(),
                 Tables\Columns\TextColumn::make('sort_order')
+                    ->label('Urutan')
                     ->sortable(),
+                
+                Tables\Columns\TextColumn::make('question')
+                    ->label('Pertanyaan')
+                    ->searchable()
+                    ->limit(50),
+
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Status')
+                    ->boolean(),
+
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable(),
             ])
-            ->defaultSort('sort_order')
-            ->reorderable('sort_order')
+            ->defaultSort('sort_order', 'asc')
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_active'),
+                Tables\Filters\TernaryFilter::make('is_active')
+                    ->label('Status'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
