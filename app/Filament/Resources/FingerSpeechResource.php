@@ -29,6 +29,12 @@ class FingerSpeechResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
+                        TextInput::make('sort_order')
+                            ->numeric()
+                            ->default(fn () => FingerSpeech::max('sort_order') + 1)
+                            ->required()
+                            ->label('Urutan'),
+                            
                         TextInput::make('huruf')
                             ->required()
                             ->maxLength(1)
@@ -63,25 +69,33 @@ class FingerSpeechResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('sort_order')
+                    ->label('Urutan')
+                    ->sortable(),
+                    
                 TextColumn::make('huruf')
                     ->label('Huruf')
                     ->searchable()
                     ->sortable(),
+                    
                 ImageColumn::make('gambar')
                     ->label('Gambar')
                     ->disk('public')
                     ->width(100)
                     ->height(100)
                     ->square(),
+                    
                 TextColumn::make('deskripsi')
                     ->label('Deskripsi')
                     ->limit(50)
                     ->searchable(),
+                    
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable(),
             ])
+            ->defaultSort('sort_order', 'asc')
             ->filters([
                 //
             ])
@@ -96,12 +110,6 @@ class FingerSpeechResource extends Resource
             ]);
     }
     
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
     
     public static function getPages(): array
     {

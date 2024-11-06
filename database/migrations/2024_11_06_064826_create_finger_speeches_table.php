@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('huruf');
             $table->string('gambar');
             $table->text('deskripsi');
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
     }

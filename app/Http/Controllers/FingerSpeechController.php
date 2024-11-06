@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class FingerSpeechController extends Controller
 {
     public function index()
-    {
-        $bahasaIsyarat = FingerSpeech::all();
-        return view('finger-speech.index', compact('bahasaIsyarat'));
-    }
+{
+    $bahasaIsyarat = FingerSpeech::orderBy('sort_order')->get();
+    return view('finger-speech.index', compact('bahasaIsyarat'));
+}
 }
