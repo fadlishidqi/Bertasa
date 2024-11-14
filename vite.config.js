@@ -7,7 +7,9 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/custom.css',
+                'resources/css/flipcard.css',
                 'resources/js/app.js',
+                
             ],
             refresh: true,
         }),
