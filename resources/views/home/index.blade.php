@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>BERTASA - Bahasa Tangan Komunikasi Nyata</title>
- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BERTASA - Bahasa Tangan Komunikasi Nyata</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        .upload-box {
+            border: 2px dashed #FFC0CB;
+            border-radius: 25px;
+            padding: 100px;
+            background: white;
+            transition: all 0.3s;
+        }
+        .upload-box:hover {
+            border-color: #EC4899;
+        }
+        .predict-button {
+            background: #EC4899;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.25rem;
+            margin-top: 40px;
+        }
+        .custom-gradient {
+            background: radial-gradient(circle at top left, #ffcfe8 0%, #ffffff 50%, #ffe1f5 100%);
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-white to-pink-50 min-h-screen">
+<body  class="custom-gradient min-h-screen">
  @include('layouts.navbar')
  
- <main class="max-w-4xl mx-auto px-4 py-8">
-     <div class="text-center mb-8">
-         <div class="flex justify-center gap-4 mb-6">
-             <img src="/images/orangbanyakhome.png" alt="People Icons" class="h-12">
-         </div>
+ <main class="max-w-5xl mx-auto px-4 py-10">
+    <div class="text-center">
+        <img src="/images/orangbanyakhome.png" alt="People Icons" class="h-20 mx-auto mb-4">
+        
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">Bahasa Tangan, Komunikasi Nyata</h1>
+        <h2 class="text-5xl font-bold text-gray-900 mt-4 mb-4">
+            Jelajahi <span class="bg-pink-700 text-white px-6 py-2 rounded-lg transform -rotate-2 inline-block">BERTASA</span>
+            <img src="/images/cursor.png" alt="Cursor" class="inline-block h-14 ml-4">
+        </h2>
+        
+        <p class="text-black-600 text-lg max-w-4xl mx-auto mt-10 mb-16">
+            BERTASA hadir sebagai jembatan komunikasi nyata. Dengan panduan dan informasi,
+            kami siap membantu menjadikan bahasa isyarat lebih mudah dipelajari dan dimengerti oleh semua orang
+        </p>
 
-         <h1 class="text-4xl font-bold text-gray-800 mb-2">Bahasa Tangan, Komunikasi Nyata</h1>
-         <h2 class="text-3xl font-bold mb-4">Jelajahi <span class="bg-pink-500 text-white px-3 py-1 rounded">BERTASA</span></h2>
-         <p class="text-gray-600 max-w-2xl mx-auto mb-12">
-             BERTASA hadir sebagai jembatan komunikasi nyata. Dengan panduan dan informasi,
-             kami siap membantu menjadikan bahasa isyarat lebih mudah dipelajari dan dimengerti oleh semua orang
-         </p>
-
-         <div class="max-w-md mx-auto">
+         <div class="max-w-3xl mx-auto">
              @if (session('error'))
                  <div class="mt-4 p-4 bg-red-100 text-red-800 rounded">
                      {{ session('error') }}
@@ -49,22 +77,22 @@
 
                      <!-- Upload Box -->
                      <label for="imageInput" id="uploadBox" 
-                            class="block border-2 border-dashed border-pink-200 rounded-lg p-12 hover:border-pink-500 transition-colors bg-white cursor-pointer">
+                            class="block border-2 border-dashed border-pink-200 rounded-3xl py-20 hover:border-pink-500 transition-colors bg-white cursor-pointer">
                          <div class="text-center">
-                             <img src="/images/galery-add.png" alt="Upload" class="mx-auto h-16 mb-4">
+                             <img src="/images/galery-add.png" alt="Upload" class="mx-auto h-14 mb-8">
                              <input type="file" 
                                  name="image" 
                                  id="imageInput"
                                  accept="image/*" 
                                  class="hidden"
                                  onchange="previewImage(this)">
-                             <p class="text-lg text-gray-600">Letakkan gambar di sini</p>
-                             <p class="mt-2 text-sm text-gray-500">Ukuran file maksimum : 5 MB</p>
+                            <p class="text-xl font-medium text-gray-800">Letakkan gambar di sini</p>
+                            <p class="mt-2 text-sm text-gray-500">Ukuran file maksimum : 5 MB</p>
                          </div>
                      </label>
 
                      <button type="submit" 
-                             class="w-full bg-pink-500 text-white py-3 px-4 rounded-md hover:bg-pink-600 transition-colors text-lg font-semibold">
+                             class="bg-pink-700 text-white py-2 px-8 rounded-full hover:bg-pink-500 transition-colors text-lg font-semibold">
                          Prediksi
                      </button>
                  </div>
@@ -78,7 +106,7 @@
              </div>
 
              <div class="mt-8">
-                 <p class="text-sm text-gray-600 mb-3">No image? Try one of these :</p>
+                 <p class="text-sm text-black-600 mb-3 font-medium">No image? Try one of these :</p>
                  <div class="flex justify-center gap-3">
                      <img src="{{ asset('images/sample1.png') }}" alt="Sample 1" class="w-16 h-16 rounded-lg object-cover cursor-pointer hover:opacity-80 transition">
                      <img src="{{ asset('images/sample2.png') }}" alt="Sample 2" class="w-16 h-16 rounded-lg object-cover cursor-pointer hover:opacity-80 transition">

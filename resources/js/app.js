@@ -1,5 +1,7 @@
+// resources/js/app.js
+
 import './bootstrap';
-import { initializeImageUpload } from './upload';
+import { initializeUpload } from './upload';
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
@@ -7,5 +9,5 @@ window.Alpine = Alpine;
 Alpine.start();
 
 document.addEventListener('DOMContentLoaded', () => {
-    initializeImageUpload();
+    initializeUpload();
 });

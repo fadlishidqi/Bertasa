@@ -1,5 +1,5 @@
-<nav class="px-8 py-4">
-    <div class="max-w-7xl mx-auto bg-white rounded-full shadow-md px-6 py-3 flex justify-between items-center">
+<nav class="px-8 py-6">
+    <div class="max-w-5xl mx-auto bg-white rounded-full shadow-md px-6 py-2 flex justify-between items-center">
         <!-- Logo -->
         <div class="w-12 h-12"> 
             <img src="{{ asset('images/bertasaLogo.png') }}" alt="Logo" class="w-full h-full object-contain">
