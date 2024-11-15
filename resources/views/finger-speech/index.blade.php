@@ -4,6 +4,13 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Bertasa | Belajar Bahasa Isyarat</title>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
    @vite(['resources/css/app.css', 'resources/css/scrollhidden.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-50 overflow-x-hidden">

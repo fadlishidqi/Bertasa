@@ -1,30 +1,43 @@
+<!-- resources/views/about/index.blade.php  -->
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - BERTASA</title>
+    <title>BERTASA - Bahasa Tangan Komunikasi Nyata</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
     @vite(['resources/css/app.css', 'resources/css/scrollhidden.css', 'resources/css/flipcard.css'])
 </head>
 <body class="bg-pink-50 min-h-screen">
     @include('layouts.navbar')
     
-    <div class="max-w-4xl mx-auto px-4 py-8"> <!-- Disesuaikan dengan max-width halaman lain -->
-        <div class="flex flex-col md:flex-row items-start gap-8 mb-16"> <!-- Gap dan margin dikurangi -->
+    <div class="max-w-5xl mx-auto px-4 py-8"> <!-- Disesuaikan dengan max-width halaman lain -->
+        <div class="flex flex-col md:flex-row items-center gap-10 mb-20">
             <!-- Left Side - Image -->
             <div class="w-full md:w-1/2">
-                <img src="{{ asset('images/orangbanyak.png') }}" alt="Illustration" class="w-full max-w-[350px] mx-auto"> <!-- Max-width dikurangi -->
+                <img src="{{ asset('images/orangbanyak.png') }}" alt="Illustration" class="w-full h-auto">
             </div>
-
+    
             <!-- Right Side - Text -->
-            <div class="w-full md:w-1/2 pt-4"> <!-- Padding dikurangi -->
-                <span class="bg-pink-500 text-white px-4 py-1 rounded-full text-sm font-medium">About us</span>
+            <div class="w-full md:w-1/2 flex flex-col justify-center">
+                <div class="inline-block">
+                    <span class="bg-pink-700 text-white px-4 py-2 rounded-full text-xl font-medium">
+                        About us
+                    </span>
+                </div>
                 
-                <h1 class="text-3xl font-bold mt-4 mb-4 text-gray-900 leading-tight"> <!-- Ukuran font dikurangi -->
-                    Bahasa Tanpa Suara, Namun Penuh Makna Kenali Kami Lebih Dekat !
+                <h1 class="text-4xl font-bold text-gray-900 mt-10 mb-10 leading-tight">
+                    Bahasa Tanpa Suara, Namun Penuh Makna. Kenali Kami Lebih Dekat !
                 </h1>
                 
-                <p class="text-gray-600 text-base leading-relaxed"> <!-- Ukuran font disesuaikan -->
+                <p class="text-gray-600 text-base leading-relaxed">
                     Di situs ini, kami mengajak Anda untuk menjelajahi dunia komunikasi yang lebih 
                     inklusif. Dengan berbagai fitur dan materi yang kami sediakan, mari bersama-sama 
                     memahami dan menguasai bahasa isyarat yang memiliki kekuatan untuk menyatukan kita semua.
