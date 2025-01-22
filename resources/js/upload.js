@@ -1,85 +1,130 @@
-// resources/js/upload.js
-const handleImageUpload = (input) => {
-    const uploadSection = document.getElementById('uploadSection');
-    const previewSection = document.getElementById('previewSection');
-    const submitButton = document.getElementById('submitButton');
+// Ekspor fungsi utama untuk digunakan di app.js
+export function initializeUpload() {
+    // Input dan Preview Image
+    const imageInput = document.getElementById('imageInput');
+    const uploadForm = document.getElementById('uploadForm');
+    const removeImageBtn = document.getElementById('removeImageBtn');
+
+    // Event Listeners
+    if (imageInput) {
+        imageInput.addEventListener('change', function () {
+            previewImage(this);
+        });
+    }
+
+    if (removeImageBtn) {
+        removeImageBtn.addEventListener('click', removeImage);
+    }
+
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', function (e) {
+            const fileInput = document.getElementById('imageInput');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                e.preventDefault();
+                showNotification('Silakan pilih gambar terlebih dahulu!', 'error');
+                return false;
+            }
+            document.getElementById('loadingIndicator').classList.remove('hidden');
+            return true;
+        });
+    }
+
+    // Sample Images
+    document.querySelectorAll('img[alt^="Sample"]').forEach(img => {
+        img.addEventListener('click', handleSampleImageClick);
+    });
+
+    // Check Messages
+    checkSessionMessages();
+}
+
+function checkSessionMessages() {
+    const successMessage = document.querySelector('meta[name="success-message"]')?.content;
+    const errorMessage = document.querySelector('meta[name="error-message"]')?.content;
+
+    if (successMessage) {
+        showNotification(successMessage, 'success');
+    }
+    if (errorMessage) {
+        showNotification(errorMessage, 'error');
+    }
+}
+
+function showNotification(message, type = 'error') {
+    // Remove existing notification
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    // Animation
+    requestAnimationFrame(() => {
+        notification.classList.add('slide-in');
+    });
+
+    // Auto dismiss
+    setTimeout(() => {
+        if (notification) {
+            notification.classList.add('slide-out');
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }
+    }, 5000);
+}
+
+function previewImage(input) {
     const preview = document.getElementById('imagePreview');
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const uploadBox = document.getElementById('uploadBox');
 
     if (input.files && input.files[0]) {
         const reader = new FileReader();
 
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             preview.src = e.target.result;
-            uploadSection.classList.add('hidden');
-            previewSection.classList.remove('hidden');
-            submitButton.classList.remove('hidden');
-        }
+            previewContainer.classList.remove('hidden');
+            uploadBox.classList.add('hidden');
+        };
 
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-const removeImage = () => {
-    const uploadSection = document.getElementById('uploadSection');
-    const previewSection = document.getElementById('previewSection');
-    const submitButton = document.getElementById('submitButton');
-    const imageInput = document.getElementById('imageInput');
+function removeImage() {
     const preview = document.getElementById('imagePreview');
+    const previewContainer = document.getElementById('imagePreviewContainer');
+    const uploadBox = document.getElementById('uploadBox');
+    const fileInput = document.getElementById('imageInput');
 
-    imageInput.value = '';
     preview.src = '';
-    uploadSection.classList.remove('hidden');
-    previewSection.classList.add('hidden');
-    submitButton.classList.add('hidden');
+    previewContainer.classList.add('hidden');
+    uploadBox.classList.remove('hidden');
+    fileInput.value = '';
 }
 
-const handleSampleImage = async (img) => {
+async function handleSampleImageClick() {
     try {
-        const response = await fetch(img.src);
+        const response = await fetch(this.src);
         const blob = await response.blob();
-        const file = new File([blob], 'sample.jpg', { type: 'image/jpeg' });
-        
+        const file = new File([blob], 'sample.png', { type: 'image/png' });
+
         const dataTransfer = new DataTransfer();
         dataTransfer.items.add(file);
-        
+
         const fileInput = document.getElementById('imageInput');
         fileInput.files = dataTransfer.files;
-        
-        handleImageUpload(fileInput);
+
+        previewImage(fileInput);
     } catch (error) {
         console.error('Error handling sample image:', error);
+        showNotification('Gagal memuat gambar contoh', 'error');
     }
-}
-
-const initializeUpload = () => {
-    const uploadForm = document.getElementById('uploadForm');
-    if (uploadForm) {
-        uploadForm.onsubmit = () => {
-            document.getElementById('loadingIndicator').classList.remove('hidden');
-            return true;
-        }
-    }
-
-    const imageInput = document.getElementById('imageInput');
-    if (imageInput) {
-        imageInput.addEventListener('change', function() {
-            handleImageUpload(this);
-        });
-    }
-
-    const removeButton = document.querySelector('[onclick="removeImage()"]');
-    if (removeButton) {
-        removeButton.onclick = removeImage;
-    }
-
-    document.querySelectorAll('img[alt^="Sample"]').forEach(img => {
-        img.addEventListener('click', () => handleSampleImage(img));
-    });
-}
-
-export {
-    initializeUpload,
-    handleImageUpload,
-    removeImage,
-    handleSampleImage
 }

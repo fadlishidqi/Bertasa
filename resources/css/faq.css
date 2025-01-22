@@ -1,0 +1,22 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.faq-answer.active {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in, border-top 0.3s ease-in;
+}
+
+.faq-answer.active > div {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 1rem;
+}
+
+.custom-gradient {
+    background: radial-gradient(circle at top left, #ffcfe8 0%, #ffffff 50%, #ffe1f5 100%);
+}

@@ -3,35 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - BERTASA</title>
+    <title>BERTASA - FAQ</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/css/scrollhidden.css'])
+    @vite(['resources/css/app.css', 'resources/css/scrollhidden.css', 'resources/css/faq.css','resources/js/faq.js'])
     
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-    
-        .faq-answer.active {
-            max-height: 500px;
-            transition: max-height 0.5s ease-in, border-top 0.3s ease-in;
-        }
-
-        .faq-answer.active > div {
-            border-top: 1px solid #f3f4f6;
-            padding-top: 1rem; /* Untuk memberi jarak antara garis dengan konten */
-        }
-
-        .custom-gradient {
-            background: radial-gradient(circle at top left, #ffcfe8 0%, #ffffff 50%, #ffe1f5 100%);
-        }
-    </style>
 </head>
 <body class="custom-gradient  min-h-screen">
     @include('layouts.navbar')
@@ -47,7 +23,7 @@
             </p>
 
             <!-- FAQ Items -->
-            <div class="max-w-3xl mx-auto space-y-6"> <!-- Increased gap -->
+            <div class="max-w-3xl mx-auto space-y-6">
                 @foreach($faqs as $faq)
                 <div class="transition-all duration-300 {{ $loop->first ? 'bg-white rounded-[24px] border-2 border-pink-500' : 'bg-white rounded-[24px]' }}"> <!-- Increased radius, removed shadow -->
                     <button class="w-full text-left p-6 focus:outline-none" onclick="toggleFaq(this)">
@@ -79,44 +55,5 @@
     </main>
 
     @include('layouts.footer')
-
-    <script>
-        function toggleFaq(button) {
-            const faqItem = button.parentElement;
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('svg');
-            
-            // Close all other FAQs and remove their borders
-            document.querySelectorAll('.faq-answer').forEach(el => {
-                if (el !== content) {
-                    el.classList.remove('active');
-                    el.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
-                    el.parentElement.classList.remove('border-2'); // Update this
-                    el.parentElement.classList.remove('border-pink-500');
-                }
-            });
-
-            // Toggle current FAQ
-            content.classList.toggle('active');
-            icon.classList.toggle('rotate-180');
-            
-            // Add border when expanded, remove when collapsed
-            if (content.classList.contains('active')) {
-                faqItem.classList.add('border-2', 'border-pink-500');
-            } else {
-                faqItem.classList.remove('border-2', 'border-pink-500');
-            }
-        }
-
-        // Initial state - maybe we don't want any FAQ open by default
-        document.addEventListener('DOMContentLoaded', function() {
-            const faqItems = document.querySelectorAll('.faq-answer');
-            faqItems.forEach(item => {
-                if (item.classList.contains('active')) {
-                    item.parentElement.classList.add('border-2', 'border-pink-500');
-                }
-            });
-        });
-    </script>
 </body>
 </html>

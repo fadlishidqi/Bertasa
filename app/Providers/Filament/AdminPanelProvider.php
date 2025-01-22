@@ -27,9 +27,14 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->darkMode(true)
+            ->brandName('BERTASA')
+            ->brandLogo(asset('images/bertasaLogo.png'))
+            ->favicon(asset('images/bertasaLogo.png'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Amber, 
             ])
+            ->font('Poppins')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

@@ -5,20 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BERTASA - Bahasa Tangan Komunikasi Nyata</title>
+    <title>BERTASA - About</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
-    @vite(['resources/css/app.css', 'resources/css/scrollhidden.css', 'resources/css/flipcard.css'])
+
+    @vite(['resources/css/app.css', 'resources/css/scrollhidden.css', 'resources/css/flipcard.css', 'resources/js/app.js'])
 </head>
 <body class="bg-pink-50 min-h-screen">
     @include('layouts.navbar')
     
-    <div class="max-w-5xl mx-auto px-4 py-8"> <!-- Disesuaikan dengan max-width halaman lain -->
+    <div class="max-w-5xl mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row items-center gap-10 mb-20">
             <!-- Left Side - Image -->
             <div class="w-full md:w-1/2">
@@ -46,12 +42,12 @@
         </div>
 
         <!-- Features Section -->
-        <div class="mt-16"> <!-- Margin dikurangi -->
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900"> <!-- Ukuran font dan margin disesuaikan -->
+        <div class="mt-16">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">
                 Mengapa memilih BERTASA (Bersuara Tanpa Suara) ?
             </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> <!-- Gap dikurangi -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div class="flip-card">
                     <div class="flip-card-inner">
